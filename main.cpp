@@ -17,30 +17,20 @@
 
 #include "Geometria.hpp"
 #include "Graficas.hpp"
+#include "Temas.hpp"
 
 
 
 int main( ){
+    // --- cargar colores ---
+    Tema::cargar("assets/config/colores.txt");
+
     // --- configurar ventana ---
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    sf::RenderWindow window;
+    Sistema::inicializarVentana(window, "Simulación de Hormigas - Tesis");
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 
-    unsigned int ancho = static_cast<unsigned int>(desktop.width * 0.8f);
-    unsigned int alto = static_cast<unsigned int>(desktop.height * 0.8f);
-    sf::RenderWindow window(sf::VideoMode(ancho, alto), 
-                        "Simulacion de Colonia de Hormigas - Tesis", 
-                        sf::Style::Fullscreen, 
-                        settings);
-    // window.setPosition(sf::Vector2i(
-    //     (desktop.width - ancho) / 2,
-    //     (desktop.height - alto) / 2
-    // ));
-
-    window.setFramerateLimit(60);
-
-    // --- poaraemtros apa simualr lko de hormigas ---
+    // --- poaraemtros para simular lo de hormigas ---
 
     // poblaciones iniciales
     float O = 100.0f; // Obreras
@@ -62,30 +52,30 @@ int main( ){
     float margenVentana = 20.f;
 
     // --- Guerreras G(t) ----
-    Panel panelG({350, 200}, 20, sf::Color(30, 30, 30), sf::Color::Cyan);
+    Panel panelG({350, 200}, 20, Tema::Panel, Tema::Guerreras);
     panelG.positionAbsoluta(Ubicacion::CentroDer, window, margenVentana);
-    GraficaTiempo graphG(100, sf::Color::Cyan, "Poblacion de Guerreras G(t)");
+    GraficaTiempo graphG(100, Tema::Guerreras, "Poblacion de Guerreras G(t)");
 
     // --- Recolectoras R(t) ---
-    Panel panelR({350, 200}, 20, sf::Color(30, 30, 30), sf::Color(255, 100, 0));
+    Panel panelR({350, 200}, 20, Tema::Panel, Tema::Recolectoras);
     panelR.positionRelativa(RelativoA::Arriba, panelG, espaciado);
-    GraficaTiempo graphR(100, sf::Color(255, 100, 0), "Poblacion de Recolectoras R(t)");
+    GraficaTiempo graphR(100, Tema::Recolectoras, "Poblacion de Recolectoras R(t)");
 
     // --- Obreras O(t) ---
-    Panel panelO({350, 200}, 20, sf::Color(30, 30, 30), sf::Color(100, 0, 255));
+    Panel panelO({350, 200}, 20, Tema::Panel, Tema::Obreras);
     panelO.positionRelativa(RelativoA::Abajo, panelG, espaciado);
-    GraficaTiempo graphO(100, sf::Color(100, 0, 255), "Poblacion de Obreras O(t)");
+    GraficaTiempo graphO(100, Tema::Obreras, "Poblacion de Obreras O(t)");
     //graphO.ponerSobreado(false);
 
     // --- boceto de fase ---
-    Panel nuevoPanel({350, 200}, 20, sf::Color(30, 30, 30), sf::Color(100, 0, 255));
+    Panel nuevoPanel({350, 200}, 20, Tema::Panel, Tema::Color1);
     nuevoPanel.positionAbsoluta(Ubicacion::CentroIzq, window, margenVentana);
-    GraficaEspacioFase nuevaGrafica(100, sf::Color(100, 0, 255), "(Obreras, Guerreras)");
+    GraficaEspacioFase nuevaGrafica(100, Tema::Color1, "(Obreras, Guerreras)");
 
     // --- boceto de fase ---
-    Panel nuevoPanel2({350, 200}, 20, sf::Color(30, 30, 30), sf::Color(255, 150, 150));
+    Panel nuevoPanel2({350, 200}, 20, Tema::Panel, Tema::Color2);
     nuevoPanel2.positionRelativa(RelativoA::Arriba  , nuevoPanel, espaciado);
-    GraficaEspacioFase nuevaGrafica2(100, sf::Color(255, 150, 150), "(Obreras, Recolectoras)");
+    GraficaEspacioFase nuevaGrafica2(100, Tema::Color2, "(Obreras, Recolectoras)");
 
 
     // --- IMPORTANTE: control del tiempo --

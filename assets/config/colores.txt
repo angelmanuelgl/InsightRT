@@ -1,0 +1,41 @@
+// colores de pagina
+dark_blue 56 89 136 255
+green 38 109 81 255
+primary_blue 0 110 182 255
+red 186 12 47 255
+yellow 253 207 65 255
+
+light_violet 211 213 237 255
+light_green 226 250 225 255
+light_blue 212 233 249 255
+light_red 251 220 231 255
+light_yellow 255 240 190 255
+
+alt_light_violet 188 189 226 255
+alt_light_green 205 228 196 255
+alt_light_blue 175 219 246 255
+alt_light_red 248 201 219 255
+alt_light_yellow 255 237 153 255
+alt_light_grey 201 202 204 255
+
+white 255 255 255 255
+light_grey 236 237 238 255
+grey_40 167 169 171 255
+grey_56 135 137 140 255
+grey_72 105 106 108 255
+dark_grey 69 69 71 255
+black 0 0 0 255
+
+
+// mis colores
+rosa 255 150 150 255
+
+fondo 15 15 15 255
+panel_fondo 30 30 30 255
+
+// uso colores de antes
+obreras alt_light_blue 
+guerreras rosa
+recolectoras 120 80 0 255
+color2 green
+color1 primary_blue

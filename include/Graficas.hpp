@@ -49,7 +49,7 @@ protected:
     Limites lim;
 
 public:
-    GraficaBase(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "fonts/Roboto.ttf");
+    GraficaBase(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "assets/fonts/Roboto.ttf");
 
     virtual ~GraficaBase() {}
 
@@ -79,7 +79,7 @@ private:
     float contadorSegundos;
     
 public:
-    GraficaTiempo(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "fonts/Roboto.ttf");
+    GraficaTiempo(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "assets/fonts/Roboto.ttf");
     // --- datos ---
     void recalcularExtremos(void) override;
     void addValue(float val);
@@ -90,7 +90,7 @@ private:
     //
 
 public:
-    GraficaEspacioFase(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "fonts/Roboto.ttf");
+    GraficaEspacioFase(unsigned int maxPts, sf::Color color, std::string t, const std::string& ruta_fuente = "assets/fonts/Roboto.ttf");
     // --- datos ---
     void recalcularExtremos(void) override;
     void addValue(float x, float y);

@@ -17,52 +17,42 @@
 
 #include "Geometria.hpp"
 #include "Graficas.hpp"
+#include "Temas.hpp"
 
 int main( ){
-   // --- configurar ventana ---
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    // --- cargar colores ---
+    Tema::cargar("assets/config/colores.txt");
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+    // --- configurar ventana ---
+    sf::RenderWindow window;
+    Sistema::inicializarVentana(window, "Simulación de Hormigas - Tesis");
 
-    unsigned int ancho = static_cast<unsigned int>(desktop.width * 0.8f);
-    unsigned int alto = static_cast<unsigned int>(desktop.height * 0.8f);
-    sf::RenderWindow window(sf::VideoMode(ancho, alto), 
-                        "Simulacion de Colonia de Hormigas - Tesis", 
-                        sf::Style::Fullscreen , //  Default
-                        settings);
-    // window.setPosition(sf::Vector2i(
-    //     (desktop.width - ancho) / 2,
-    //     (desktop.height - alto) / 2
-    // ));
-
-    window.setFramerateLimit(60);
 
     // --- Parametros del Pendulo ---
     float theta = 1.5f;      // angulo inicial (aprox 85 grados)
     float omega = 0.0f;      // velocidad angular inicial
     const float g = 9.81f;   // gravedad
     const float L = 200.0f;  // longitud del pendulo (en pixeles para visualización)
-    const float amortiguamiento = 3.995f; // Opcional: para que se detenga poco a poco
+    const float amortiguamiento = 3.995f; // opcional: para que se detenga poco a poco
 
     // --- Interfaz InsightRT ---
     float espaciado = 25.f;
     float margenVentana = 20.f;
 
     // Panel para el angulo Theta(t)
-    Panel panelTheta({400, 250}, 20, sf::Color(25, 25, 25), sf::Color::Yellow);
+    Panel panelTheta({350, 200}, 20, sf::Color(25, 25, 25), Tema::yellow);
     panelTheta.positionAbsoluta(Ubicacion::CentroDer, window, margenVentana);
-    GraficaTiempo graphTheta(100, sf::Color::Yellow, "Angulo Theta(t)");
+    GraficaTiempo graphTheta(100, Tema::yellow, "Angulo Theta(t)");
 
     // Panel para velocidad angular omega(t)
-    Panel panelOmega({400, 250}, 20, sf::Color(25, 25, 25), sf::Color::Yellow);
+    Panel panelOmega({350, 200}, 20, sf::Color(25, 25, 25), Tema::yellow);
     panelOmega.positionRelativa(RelativoA::Arriba, panelTheta, espaciado);
-    GraficaTiempo graphOmega(100, sf::Color::Yellow, "Velocidad Omega(t)");
+    GraficaTiempo graphOmega(100, Tema::yellow, "Velocidad Omega(t)");
 
     // panel para el Espacio de Fase (Theta vs Omega)
-    Panel panelFase({400, 250}, 20, sf::Color(25, 25, 25), sf::Color::Magenta);
+    Panel panelFase({350, 200}, 20, sf::Color(25, 25, 25), Tema::green);
     panelFase.positionRelativa(RelativoA::Abajo, panelTheta, espaciado);
-    GraficaEspacioFase graphFase(100, sf::Color::Magenta, "Fase (Theta, Omega)");
+    GraficaEspacioFase graphFase(100, Tema::green, "Fase (Theta, Omega)");
 
     // --- Control del tiempo ---
     sf::Clock clock;
@@ -116,6 +106,7 @@ int main( ){
 
         panelFase.draw(window);
         graphFase.draw(window, panelFase);
+
         
         panelOmega.draw(window);
         graphOmega.draw(window, panelOmega);
