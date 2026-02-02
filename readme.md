@@ -41,13 +41,17 @@ g++ apps/hormigas/main_hormigas.cpp *.o -I lib_grafica/include -o build/hormigas
 g++ apps/hormigas/main_hormigas.cpp build/Geometria.o build/Graficas.o -I lib_grafica/include -o build/hormigas.exe -lsfml-graphics -lsfml-window -lsfml-system
 ```
 luego compilar el proyecto
-HORMIGAS:
+#### Sistema de ecuacines diferenciales para poblaciones (HORMIGAS)
 ```bash
 g++ apps/hormigas/main.cpp build/Geometria.o build/Graficas.o -I lib_grafica/include -o build/hormigas.exe -lsfml-graphics -lsfml-window -lsfml-system
 ```
-PENDULO: 
+#### Ecuacion diferencial de segundo Orden (PENDULO)
 ```bash
 g++ apps/pendulo/pendulo.cpp build/Geometria.o build/Graficas.o -I lib_grafica/include -o build/pendulo.exe -lsfml-graphics -lsfml-window -lsfml-system
+```
+#### Proceso Bisexual de Dalton Watson (PULPOS)
+```bash
+g++ apps/GaltonWatson/simulacionconArbol.cpp build/Geometria.o build/Graficas.o -I lib_grafica/include -o build/pulpos.exe -lsfml-graphics -lsfml-window -lsfml-system
 ```
 
 ## compilación (version anterior)
@@ -55,5 +59,5 @@ g++ apps/pendulo/pendulo.cpp build/Geometria.o build/Graficas.o -I lib_grafica/i
 Para compilar el proyecto manualmente, utiliza el siguiente comando:
 
 ```bash
-g++ apps/hormigas/main_hormigas.cpp lib_grafica/src/*.cpp -I lib_grafica/include -o build/hormigas.exe -lsfml-graphics -lsfml-window -lsfml-system
+g++ apps/pendulo/pendulo.cpp lib_grafica/src/Geometria.cpp lib_grafica/src/Graficas.cpp -I lib_grafica/include -o build/pendulo.exe -lsfml-graphics -lsfml-window -lsfml-system
 ```

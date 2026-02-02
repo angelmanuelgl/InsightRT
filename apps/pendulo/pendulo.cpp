@@ -36,22 +36,22 @@ int main( ){
     const float amortiguamiento = 3.995f; // opcional: para que se detenga poco a poco
 
     // --- Interfaz InsightRT ---
-    float espaciado = 25.f;
+    float espaciado = 15.f;
     float margenVentana = 20.f;
 
     // Panel para el angulo Theta(t)
-    Panel panelTheta({350, 200}, 20, sf::Color(25, 25, 25), Tema::yellow);
-    panelTheta.positionAbsoluta(Ubicacion::CentroDer, window, margenVentana);
+    Panel panelTheta(window, Tema::yellow, 3, 3);
+    panelTheta.positionAbsoluta(Ubicacion::CentroDer, window);
     GraficaTiempo graphTheta(Tema::yellow, "Angulo Theta(t)");
 
     // Panel para velocidad angular omega(t)
-    Panel panelOmega({350, 200}, 20, sf::Color(25, 25, 25), Tema::yellow);
-    panelOmega.positionRelativa(RelativoA::Arriba, panelTheta, espaciado);
+    Panel panelOmega(window, Tema::yellow, 3, 3);
+    panelOmega.positionRelativa(RelativoA::Arriba, panelTheta);
     GraficaTiempo graphOmega(Tema::yellow, "Velocidad Omega(t)");
 
     // panel para el Espacio de Fase (Theta vs Omega)
-    Panel panelFase({350, 200}, 20, sf::Color(25, 25, 25), Tema::green);
-    panelFase.positionRelativa(RelativoA::Abajo, panelTheta, espaciado);
+    Panel panelFase(window, Tema::green,3 , 3);
+    panelFase.positionRelativa(RelativoA::Abajo, panelTheta);
     GraficaEspacioFase graphFase(Tema::green, "Fase (Theta, Omega)");
 
     // --- Control del tiempo ---

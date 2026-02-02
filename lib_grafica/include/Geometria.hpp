@@ -61,22 +61,32 @@ enum class RelativoA {
 
 class Panel {
 private:
-    sf::Vector2f size;
-    float radio;
+    // el panel en si
     sf::VertexArray background;
     sf::VertexArray contorno;
     sf::Transform mytransform; 
     sf::Vector2f pos_actual;
+    // referencias
+    const sf::RenderWindow& window;
+    // poscionar //todo: hacer una clase que contenga todos los paneles // para tener medidas iguales para todos
+    float radio = 20.0f;
+    float espaciado = 15.f;
+    float margenVentana = 20.f;
+    sf::Vector2f size;
 
 public:
-    Panel(sf::Vector2f sz, float r, sf::Color bgColor, sf::Color extColor);
+    Panel(const sf::RenderWindow& window_, sf::Color extColor, 
+                int nx = 3, int ny = 4, // para tamano
+                sf::Color bgColor=sf::Color(30,30,30) ); // color de fondo
+
 
     sf::Vector2f getPosition() const { return pos_actual; }
     sf::Vector2f getSize() const { return size; }
 
-    void positionAbsoluta(Ubicacion ubi, const sf::RenderWindow& window, float margin = 10.f);
-    void positionRelativa(RelativoA rel, const Panel& other, float spacing = 15.f);
+    void positionAbsoluta(Ubicacion ubi, const sf::RenderWindow& window);
+    void positionRelativa(RelativoA rel, const Panel& other);
     void setPosition(float x, float y);
+    void configurarMedidas( float r, float esp, float margen){ radio = r; espaciado = esp; margen = margenVentana;  }
     
     sf::RenderStates getInternalState() const;
     void draw(sf::RenderWindow& window);

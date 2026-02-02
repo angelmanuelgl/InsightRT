@@ -1,3 +1,6 @@
+// se peuden piner coemntarios con doble barra
+// poner colores en formato:  nombre_color r g b a
+
 // colores de pagina
 dark_blue 56 89 136 255
 green 38 109 81 255
@@ -30,10 +33,11 @@ black 0 0 0 255
 // mis colores
 rosa 255 150 150 255
 
+// colores usadods
 fondo 15 15 15 255
-panel_fondo 30 30 30 255
+panel 30 30 30 255
 
-// uso colores de antes
+//  tambine se puede usar uso colores definidos antes
 obreras alt_light_blue 
 guerreras rosa
 recolectoras 120 80 0 255

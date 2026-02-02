@@ -11,14 +11,17 @@
     clases derivadas: para la visualización de series temporales  
                       para retratos de fase.
 */
+
 #ifndef GRAFICAS_HPP
 #define GRAFICAS_HPP
+
+
+#include "Geometria.hpp" // para que reconozca la clase Panel
 
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 #include <algorithm>
-#include "Geometria.hpp" // Para que reconozca la clase Panel
 
 struct Limites {
     float minX, maxX, minY, maxY;

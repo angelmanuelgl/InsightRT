@@ -6,16 +6,17 @@
     * libreria de herramientas graficas para monitoreo de datos 
     * en vivo y comportamiento de sistemas complejos.
  */
-/*  GEOMETRIA.cpp
-    sistema de clases base para graficar
-    clases derivadas: para la visualización de series temporales  
-                      para retratos de fase.
+/*  Graficas.cpp
+    sistema de clases base para graficar en el plano x y
+    clases derivadas: 
+            -> funciones que dependen del tiempo
+            -> retratos de fase 2D
 */
 #include "Graficas.hpp"
 
 /*
     GRAFICAS BASE
-    aquiv an lso metodos que deberian tener todas las graficas en comun
+    aqui va los metodos que deberian tener todas las graficas en comun
 */
 GraficaBase::GraficaBase(unsigned int maxPts, sf::Color color, std::string t ) 
     : maxPoints(maxPts), lineaResaltado(color), titulo(t) { 

@@ -30,7 +30,7 @@ int main( ){
     Sistema::inicializarVentana(window, "Simulación de Hormigas - Tesis");
 
 
-    // --- poaraemtros para simular lo de hormigas ---
+    // --- parametros para simular lo de hormigas ---
 
     // poblaciones iniciales
     float O = 100.0f; // Obreras
@@ -47,34 +47,31 @@ int main( ){
     const float dG = 0.02f;      // muerte Guerreras
     const float dR = 0.05f;      // muerte Recolectoras
 
-    // ---  Interfaz ---
-    float espaciado = 25.f; // epacio entre paneles
-    float margenVentana = 20.f;
 
     // --- Guerreras G(t) ----
-    Panel panelG({350, 200}, 20, Tema::Panel, Tema::Guerreras);
-    panelG.positionAbsoluta(Ubicacion::CentroDer, window, margenVentana);
+    Panel panelG(window, Tema::Guerreras, 4,4);
+    panelG.positionAbsoluta(Ubicacion::ArribaDer, window);
     GraficaTiempo graphG(Tema::Guerreras, "Poblacion de Guerreras G(t)");
 
     // --- Recolectoras R(t) ---
-    Panel panelR({350, 200}, 20, Tema::Panel, Tema::Recolectoras);
-    panelR.positionRelativa(RelativoA::Arriba, panelG, espaciado);
+    Panel panelR(window,  Tema::Recolectoras,  4,4);
+    panelR.positionRelativa(RelativoA::Abajo, panelG);
     GraficaTiempo graphR(Tema::Recolectoras, "Poblacion de Recolectoras R(t)");
 
     // --- Obreras O(t) ---
-    Panel panelO({350, 200}, 20, Tema::Panel, Tema::Obreras);
-    panelO.positionRelativa(RelativoA::Abajo, panelG, espaciado);
+    Panel panelO(window,  Tema::Obreras, 4,4);
+    panelO.positionRelativa(RelativoA::Abajo, panelR);
     GraficaTiempo graphO(Tema::Obreras, "Poblacion de Obreras O(t)");
     //graphO.ponerSobreado(false);
 
     // --- boceto de fase ---
-    Panel nuevoPanel({350, 200}, 20, Tema::Panel, Tema::Color1);
-    nuevoPanel.positionAbsoluta(Ubicacion::CentroIzq, window, margenVentana);
+    Panel nuevoPanel(window, Tema::Color1);
+    nuevoPanel.positionAbsoluta(Ubicacion::ArribaIzq, window);
     GraficaEspacioFase nuevaGrafica(Tema::Color1, "(Obreras, Guerreras)");
 
     // --- boceto de fase ---
-    Panel nuevoPanel2({350, 200}, 20, Tema::Panel, Tema::Color2);
-    nuevoPanel2.positionRelativa(RelativoA::Arriba  , nuevoPanel, espaciado);
+    Panel nuevoPanel2(window,  Tema::Color2);
+    nuevoPanel2.positionRelativa(RelativoA::Abajo  , nuevoPanel);
     GraficaEspacioFase nuevaGrafica2(Tema::Color2, "(Obreras, Recolectoras)");
 
 

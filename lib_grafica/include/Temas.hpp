@@ -26,12 +26,9 @@ namespace Tema{
     // nota no usa enum class porque aqui guardamos info
     inline sf::Color Fondo;
     inline sf::Color Panel;
-    inline sf::Color Obreras;
-    inline sf::Color Guerreras;
-    inline sf::Color Recolectoras;
-    inline sf::Color Color1;
-    inline sf::Color Color2;
-
+    
+    inline sf::Color Obreras, Guerreras, Recolectoras,  Color1,  Color2, rosa;
+    
     inline sf::Color dark_blue, green, primary_blue, red, yellow, dark_grey;
     inline sf::Color light_violet, light_green, light_blue, light_red, light_yellow, light_grey;
     inline sf::Color white, black;
@@ -106,6 +103,7 @@ namespace Tema{
         white        = m["white"];
         black        = m["black"];
         // especificos
+        rosa = m["rosa"];
         Fondo = m["fondo"];
         Obreras = m["obreras"];
         Guerreras = m["guerreras"];
@@ -120,7 +118,7 @@ namespace Tema{
 
  // --- configurar ventana ---
  namespace Sistema {
-    // Estructura para devolver los parámetros configurados
+    // Estructura para devolver los parametros configurados
     struct ConfigVentana {
         unsigned int ancho;
         unsigned int alto;
