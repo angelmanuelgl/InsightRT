@@ -15,10 +15,14 @@
 #define LIBRERIA_HPP
 
 
-#include "Panel.hpp"
-
 #include "Geometria.hpp"
+
+#include "Panel.hpp" // Objeto Geoemtria / Titulo
+
+
 #include "Graficas.hpp"
 #include "Temas.hpp"
+#include "GraficoCircular.hpp"
+#include "Titulo.hpp"
 
 #endif

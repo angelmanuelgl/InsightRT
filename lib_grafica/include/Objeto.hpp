@@ -5,6 +5,8 @@
 
 class Objeto {
 public:
+    sf::Font font;
+
     // destructor virtual 
     virtual ~Objeto() = default;
 
@@ -13,6 +15,12 @@ public:
      // ojo: quen no conviene que reciva el panel
     virtual void draw(sf::RenderWindow& window, sf::RenderStates states, sf::Vector2f pSize ) = 0;
 
+    // cosas comunes
+     Objeto(void){
+        // fuente por defecto
+        const std::string& ruta_fuente = "assets/fonts/Roboto.ttf";
+        if( !font.loadFromFile(ruta_fuente) ){  /* error */ }
+    }
 };
 
 #endif

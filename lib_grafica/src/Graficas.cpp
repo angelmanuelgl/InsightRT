@@ -21,22 +21,9 @@
     GRAFICAS BASE
     aqui va los metodos que deberian tener todas las graficas en comun
 */
-GraficaBase::GraficaBase(unsigned int maxPts, sf::Color color, std::string t ) 
-    : maxPoints(maxPts), lineaResaltado(color), titulo(t) { 
-    
+GraficaBase::GraficaBase(unsigned int maxPts, sf::Color color) 
+    : Objeto(), maxPoints(maxPts), lineaResaltado(color) { 
 
-    // --- la fuente sera la misma por ahora ---
-    //TODO agregar mas fuentes y una funcion para cambiar fuentes
-    const std::string& ruta_fuente = "assets/fonts/Roboto.ttf";
-    if( !font.loadFromFile(ruta_fuente) ){  /* error */ }
-    
-
-    // medidas
-    tamanoTitulo = 12.f;
-    titulo_texto.setFont(font);
-    titulo_texto.setString(titulo);
-    titulo_texto.setCharacterSize(tamanoTitulo);
-    titulo_texto.setFillColor(sf::Color::White);
     
     // ejes
     nombreEjeX = "Eje X"; nombreEjeY = "Eje Y";
@@ -170,18 +157,15 @@ std::string GraficaBase::getEtiquetaX(int i ){
 
 // --- dibujar ---
 void GraficaBase::draw(sf::RenderWindow& window, sf::RenderStates states, sf::Vector2f pSize ){ 
-    float alturaTitulo = titulo_texto.getGlobalBounds().height;
-    // sf::Vector2f pSize = parent.getSize();
-    // sf::RenderStates states = parent.getInternalState(); // antes se pasaba Panel& parent parametro
-    
+
     float paddingL = mostrarEtiquetasEjes ? 45.f : 30.f;
     float paddingB = mostrarEtiquetasEjes ? 35.f : 25.f;
-    float graphWidth = pSize.x - (paddingL + 20.f);
-    float offsetTop = alturaTitulo + 25.f;
-    float graphHeight = pSize.y - (paddingB + offsetTop * 1.0);
 
-    titulo_texto.setPosition(15.f, alturaTitulo - 3.0f);
-    window.draw(titulo_texto, states);
+
+    float offsetTop = 10.f;
+
+    float graphWidth = pSize.x - (paddingL + 20.f);
+    float graphHeight = pSize.y - (paddingB + offsetTop * 1.0);
 
     sf::Color colorGuia(60, 60, 60); 
     sf::Color axisColor(100, 100, 100);
@@ -196,7 +180,7 @@ void GraficaBase::draw(sf::RenderWindow& window, sf::RenderStates states, sf::Ve
         lineaGuia[1] = { {paddingL + graphWidth, yPos}, colorGuia };
         window.draw(lineaGuia, states);
 
-        // AQUI LLAMAMOS A LOS METODOS DE LA GRAFICA HIJA
+        // poner etiquetas
         sf::Text label(getEtiquetaY(i), font, 10);
         label.setPosition(paddingL - 25.f, yPos - 7.f);
         label.setFillColor(axisColor);
@@ -250,8 +234,8 @@ void GraficaBase::draw(sf::RenderWindow& window, sf::RenderStates states, sf::Ve
    el eje x es el tiempo y vamos agtregando datos
    se supone que los datos se van agregando en tiempo real
 */
-GraficaTiempo::GraficaTiempo( sf::Color color, std::string t)
-    :GraficaBase(500, color, t) {    
+GraficaTiempo::GraficaTiempo( sf::Color color)
+    :GraficaBase(500, color) {    
     ponerSombreado(true, true);
 }
 
@@ -300,8 +284,8 @@ void GraficaTiempo::recalcularExtremos(void){
     GRAFICAS DE ESPACIO FASE
     agrega pares
 */
-GraficaEspacioFase::GraficaEspacioFase( sf::Color color, std::string t)    
-    :GraficaBase(500, color, t)
+GraficaEspacioFase::GraficaEspacioFase( sf::Color color)    
+    :GraficaBase(5000, color)
 {    
     nombreEjeX = "X";
     nombreEjeY = "Y";

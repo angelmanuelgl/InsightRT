@@ -36,19 +36,19 @@ int main( ){
     const float amortiguamiento = 0.999f; // opcional: para que se detenga poco a poco
 
     // --- paneles --- 
-    Panel panelTheta(window, Tema::c("rojo"), 4,3 );
+    Panel panelTheta(window, Tema::c("rojo"), "Angulo Theta(t)", 3,3 );
     panelTheta.positionAbsoluta(Ubicacion::CentroDer);
     
-    Panel panelOmega(window, Tema::c("naranja"), 4,3 );
+    Panel panelOmega(window, Tema::c("naranja"), "Velocidad Omega(t)", 3,3 );
     panelOmega.positionRelativa(RelativoA::Arriba, panelTheta);
     
-    Panel panelFase(window, Tema::c("amarillo"), 4,3 );
-    panelFase.positionRelativa(RelativoA::Abajo, panelTheta);
+    Panel panelFase(window, Tema::c("amarillo"), "Fase (omega , theta)", 3,2 );
+    panelFase.positionAbsoluta(Ubicacion::CentroIzq);
     
     // --- graficas y contenido en general ---
-    auto* ptrTheta = panelTheta.crearContenido<GraficaTiempo>(Tema::c("rojo"), "Angulo Theta(t)");
-    auto* ptrOmega = panelOmega.crearContenido<GraficaTiempo>(Tema::c("naranja"), "Velocidad Omega(t)");
-    auto* ptrFase  = panelFase.crearContenido<GraficaEspacioFase>(Tema::c("amarillo"), "Fase (theta, omega)");
+    auto* ptrTheta = panelTheta.crearContenido<GraficaTiempo>(Tema::c("rojo"));
+    auto* ptrOmega = panelOmega.crearContenido<GraficaTiempo>(Tema::c("naranja"));
+    auto* ptrFase  = panelFase.crearContenido<GraficaEspacioFase>(Tema::c("amarillo"));
 
 
     // --- configurar limites -- 
@@ -56,7 +56,7 @@ int main( ){
     // ptrTheta -> ponerSombreado( true, false);
     // graphTheta -> configurarLimites(-1,1, -1, 1);
     ptrOmega -> configurarLimites( 0,0, -3, 3);
-    ptrFase -> configurarLimites(-0,0, -3, 3);
+    ptrFase -> configurarLimites(-3.2, 3.2, -2, 2 );
 
 
     // --- Control del tiempo ---
@@ -84,7 +84,7 @@ int main( ){
             // --- actualizar graficas ---
             ptrTheta->addValue(theta);
             ptrOmega->addValue(omega);
-            ptrFase->addValue(theta, omega);
+            ptrFase->addValue(omega, theta);
 
             accumulator -= ups;
         }

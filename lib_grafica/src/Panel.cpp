@@ -19,8 +19,9 @@
     STRUCT PANEL
     generar paneles dinamicos
 */
-Panel::Panel(sf::RenderWindow& window_,  sf::Color extColor,  int nx, int ny , sf::Color bgColor):
-    window(window_) {
+Panel::Panel(sf::RenderWindow& window_,  sf::Color extColor,  
+            const std::string& tituloPanel, int nx, int ny , sf::Color bgColor):
+    window(window_) {   
     // --- calcular el tamano ---
     sf::Vector2u windowSize = window.getSize();
     
@@ -40,10 +41,16 @@ Panel::Panel(sf::RenderWindow& window_,  sf::Color extColor,  int nx, int ny , s
     
     size = {x, y};
 
-    // generar
+    // generar 
+    yafuenteCargada = false;
+    if( tituloPanel != "") {
+        cargarFuenteSiFalta();
+        ponerTitulo(tituloPanel, fuentePredeterminada);
+    }
+   
+
     elMarco.generar(size, radio, bgColor, extColor);
-    // background = generarRectanguloRelleno(size, radio, 40, bgColor);
-    // generarBorde(contorno, {0,0}, size, radio, 2.0f, 40, extColor);
+    
 }
 
 void Panel::setPosition(float x, float y) {
@@ -98,14 +105,46 @@ sf::RenderStates Panel::getInternalState() const {
 void Panel::draw(void) {
     elMarco.draw(window, mytransform); 
 
+    
+    // getInternalState() devuelve el sf::RenderStates con mytransform
+    sf::RenderStates states = getInternalState();
+    sf::Vector2f sizeContenido = size;
+    
+    // si tiene titulo, reservar espacio
+    if( titulo ){   
+        titulo->draw(window, states);
+        float h = titulo->getAltura();
+        
+        // desplazar hacia abajo el contenido
+        states.transform.translate(0, h);
+        sizeContenido.y -= h;
+    }
+
+    // si tiene contenido se dibujar
     if( contenido ){
-        // getInternalState() devuelve el sf::RenderStates con mytransform
-        contenido->draw(window, getInternalState(), size);
+        contenido->draw(window, states, sizeContenido);
     } 
 }
 
 /*
-    como intertactua el panel con sus elementosd 
+   titulo 
+*/
+void Panel::cargarFuenteSiFalta(){
+    if( !yafuenteCargada ){
+        if( fuentePredeterminada.loadFromFile("assets/fonts/Roboto.ttf") ){
+            yafuenteCargada = true;
+        }else{
+            // manejar error de carga de fuente
+            std::cerr << "Error al cargar la fuente predeterminada." << std::endl;
+        }
+    }
+}
+void Panel::ponerTitulo(const std::string& texto, const sf::Font& fuente){
+    titulo = std::make_unique<Titulo>(texto, fuente);
+}
+
+/*
+    como intertactua el panel con sus elementoss
 */
 void Panel::setContenido(std::unique_ptr<Objeto> nuevoContenido) {
     contenido = std::move(nuevoContenido);

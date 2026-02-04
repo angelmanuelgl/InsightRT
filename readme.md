@@ -5,6 +5,10 @@ es una herramienta (en desarrollo) para la visualización de datos en tiempo rea
 
 Está diseñada para integrarse fácilmente en simulaciones complejas, permitiendo monitorear mediante gráficas temporales y retratos de fase.
 
+![Image](https://github.com/user-attachments/assets/5e4b6a0f-d171-424f-b763-c92d39fa1807)
+
+![Image](https://github.com/user-attachments/assets/6257ad01-88e9-4828-8d25-a0eb1c262ee9)
+
 ## Caracteristicas
 * **Visualización en Tiempo Real**: Gráficas de evolución temporal con sombreado de degradado (gradient fill).
 * **Análisis de Espacio Fase**: Gráficas de trayectoria (X vs Y) para estudio de sistemas dinámicos.

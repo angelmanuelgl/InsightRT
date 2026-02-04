@@ -15,17 +15,21 @@
 #include <vector>
 #include <algorithm>
 
+#include "Titulo.hpp"
 #include "Libreria.hpp"
-#include "GraficoCircular.hpp"
+// #include "GraficoCircular.hpp"
 
 
 int main( ){
+    sf::Font roboto;
+    roboto.loadFromFile("assets/fonts/Roboto.ttf");
+
     // --- cargar colores ---
     std::cout << "1. Cargando temas..." << std::endl;
     Tema::cargar("assets/config/colores.txt");
 
     // --- configurar ventana ---
-   std::cout << "2. Inicializando ventana..." << std::endl;
+    std::cout << "2. Inicializando ventana..." << std::endl;
     sf::RenderWindow window;
     Sistema::inicializarVentana(window, "Simulacion de Hormigas - Tesis");
 
@@ -49,44 +53,46 @@ int main( ){
 
     std::cout << "3. Creando paneles..." << std::endl;
     // --- paneles----
-    Panel panelG(window, Tema::c("guerreras"), 4,3 );
+    Panel panelG(window, Tema::c("guerreras"), "Poblacion de Guerreras G(t)", 4,3 );
     panelG.positionAbsoluta(Ubicacion::ArribaDer);
 
-    Panel panelR(window,  Tema::c("recolectoras"),  4,3 );
+    Panel panelR(window,  Tema::c("recolectoras"), "Poblacion de Recolectoras R(t)", 4,3  );
     panelR.positionRelativa(RelativoA::Abajo, panelG);
 
-    Panel panelO(window,  Tema::c("obreras"), 4,3 );
+    Panel panelO(window,  Tema::c("obreras"), "Poblacion de Obreras O(t)", 4,3 );
     panelO.positionRelativa(RelativoA::Abajo, panelR);
 
-    Panel panelf1(window, Tema::c("color1"), 5, 4);
-    panelf1.positionAbsoluta(Ubicacion::ArribaIzq);
+    Panel panelfOG(window, Tema::c("color1"), "Espacio Fase (O, G)", 5, 4);
+    panelfOG.positionAbsoluta(Ubicacion::ArribaIzq);
 
-    Panel panelf2(window,  Tema::c("color2"), 5, 4);
-    panelf2.positionRelativa(RelativoA::Abajo  , panelf1);
+    Panel panelfOR(window,  Tema::c("color2"), "Espacio Fase (O, R)", 5, 4);
+    panelfOR.positionRelativa(RelativoA::Abajo  , panelfOG);
 
-    Panel panelf3(window,  Tema::c("color3"), 5, 4);
-    panelf3.positionRelativa(RelativoA::Abajo  , panelf2);
+    Panel panelfRG(window,  Tema::c("color3"), "Espacio Fase (R, G)", 5, 4);
+    panelfRG.positionRelativa(RelativoA::Abajo  , panelfOR);
 
-    Panel panelCirc(window,  Tema::c("rojo"), 5, 4);
-    panelCirc.positionRelativa(RelativoA::Abajo, panelf3);
+    Panel panelCirc(window,  Tema::c("rojo"), "Poblacion de Hormigas", 5, 4);
+    panelCirc.positionRelativa(RelativoA::Abajo, panelfRG);
 
-    std::cout << "4. Creando graficas..." << std::endl;
+   
     
     
     // --- graficas respecto a tiempo y respecot a fase ---
-    auto* graphG = panelG.crearContenido<GraficaTiempo>(Tema::c("guerreras"), "Poblacion de Guerreras G(t)");
-
-    auto* graphR = panelR.crearContenido<GraficaTiempo>(Tema::c("recolectoras"), "Poblacion de Recolectoras R(t)");
-    auto* graphO = panelO.crearContenido<GraficaTiempo>(Tema::c("obreras"), "Poblacion de Obreras O(t)");
+    auto* graphG = panelG.crearContenido<GraficaTiempo>(Tema::c("guerreras"));
+    auto* graphR = panelR.crearContenido<GraficaTiempo>(Tema::c("recolectoras"));
+    auto* graphO = panelO.crearContenido<GraficaTiempo>(Tema::c("obreras"));
     
+    graphG -> configurarMaxPoints(1000);
+    graphR -> configurarMaxPoints(1000);
+    graphO -> configurarMaxPoints(1000);
 
-    auto* fase1 = panelf1.crearContenido<GraficaEspacioFase>(Tema::c("color1"), "(Obreras, Guerreras)");
-    auto* fase2 = panelf2.crearContenido<GraficaEspacioFase>(Tema::c("color2"), "(Obreras, Recolectoras)");
-    auto* fase3 = panelf3.crearContenido<GraficaEspacioFase>(Tema::c("color3"), "(Recolectoras, Guerreras)");
-    
-    fase1 -> configurarMaxPoints(10000);
-    fase2 -> configurarMaxPoints(10000);  
-    fase3 -> configurarMaxPoints(10000);
+    auto* faseOG = panelfOG.crearContenido<GraficaEspacioFase>(Tema::c("color1"));
+    auto* faseOR = panelfOR.crearContenido<GraficaEspacioFase>(Tema::c("color2"));
+    auto* faseRG = panelfRG.crearContenido<GraficaEspacioFase>(Tema::c("color3"));
+
+    faseOG -> configurarMaxPoints(10000);
+    faseOR -> configurarMaxPoints(10000);  
+    faseRG -> configurarMaxPoints(10000);
 
 
     std::vector<sf::Color> colores = { Tema::c("obreras"), Tema::c("guerreras"), Tema::c("recolectoras") };
@@ -135,9 +141,9 @@ int main( ){
             graphG -> addValue(G);
             graphR -> addValue(R);
 
-            fase1 -> addValue(O,G);
-            fase2 -> addValue(O,R);
-            fase3 -> addValue(R,G);
+            faseOG -> addValue(O,G);
+            faseOR -> addValue(O,R);
+            faseRG -> addValue(R,G);
 
             circular -> addValues( {O, G, R} );
 
@@ -146,15 +152,15 @@ int main( ){
         }
 
         // --- RENDERIZADO ---
-        window.clear(sf::Color(15, 15, 15)); // Fondo oscuro tipo Sci-Fi
+        window.clear(sf::Color(40, 40, 40)); // fondo oscuro tipo Sci-Fi
 
         // Dibujar paneles y sus graficas internas
         panelG.draw();
         panelR.draw();
         panelO.draw();
-        panelf2.draw();
-        panelf1.draw();
-        panelf3.draw();
+        panelfOG.draw();
+        panelfOR.draw();
+        panelfRG.draw();
 
         panelCirc.draw();
 

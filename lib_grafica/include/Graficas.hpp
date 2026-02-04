@@ -30,31 +30,28 @@ struct Limites {
 
 class GraficaBase : public Objeto {
 protected:
+    // linea 
     unsigned int maxPoints;
     sf::Color lineaResaltado;
-    sf::Font font;
-    sf::Text titulo_texto;
-    std::string titulo;
 
+    // ejes
     std::string nombreEjeX, nombreEjeY;
     std::string unidadEjeX, unidadEjeY;
     int numMarcasX, numMarcasY;
     
-
-    float tamanoTitulo;
-
-    // efectos 
-        
+    // efectos   
     bool mostrarEtiquetasEjes; 
     bool sombreado;
     bool desvanece;
     bool sombreadoAlEje;
 
+
+    // datos
     std::vector<sf::Vector2f> puntos; //  pares (x, y)
     Limites lim;
 
 public:
-    GraficaBase(unsigned int maxPts, sf::Color color, std::string t);
+    GraficaBase(unsigned int maxPts, sf::Color color);
 
     virtual ~GraficaBase() {}
 
@@ -67,7 +64,6 @@ public:
 
     // --- estilo ---
     void setMostrarEtiquetas(bool mostrar) { mostrarEtiquetasEjes = mostrar; }
-    void setTamanoTitulo(float tam) { tamanoTitulo = tam; titulo_texto.setCharacterSize((unsigned int)tamanoTitulo); }
     void configurarEjes(std::string nx, std::string ux, std::string ny, std::string uy) { nombreEjeX = nx; unidadEjeX = ux; nombreEjeY = ny; unidadEjeY = uy; }
     void configurarMarcas(int mx, int my) { numMarcasX = mx; numMarcasY = my; }
     void configurarMaxPoints(int mp) { maxPoints = mp; }
@@ -86,7 +82,7 @@ private:
     float contadorSegundos;
     
 public:
-    GraficaTiempo(sf::Color color, std::string t);
+    GraficaTiempo(sf::Color color);
     // --- datos ---
     void recalcularExtremos(void) override;
     void addValue(float val);
@@ -97,7 +93,7 @@ private:
     //
 
 public:
-    GraficaEspacioFase(sf::Color color, std::string t);
+    GraficaEspacioFase(sf::Color color);
     // --- datos ---
     void recalcularExtremos(void) override;
     void addValue(float x, float y);
